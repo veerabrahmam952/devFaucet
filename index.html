@@ -64,30 +64,31 @@
         required
       />
 
-      <label for="gender">Gender:</label>
-      <select id="gender" name="gender" required>
+      <label for="solovalue">Select SOLO want to drop</label>
+      <select id="solovalue" name="solovalue" required>
         <option value="">--Please select--</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
+        <option value="1">1 Solo</option>
+        <option value="2">2 Solo</option>
+        <option value="3">3 Solo</option>
       </select>
 
-      <input type="button" value="Submit" onclick="airDropSOL()"/>
+      <input type="button" value="Drop" onclick="airDropSOL()"/>
     </div>
     <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
     <script>
       function airDropSOL() {
         const inputWalletAddr = document.getElementById("walletAddress").value;
+        const soloValue = document.getElementById("solovalue").value;
         const { Connection, PublicKey } = solanaWeb3;
         //Connection
-        const connection = new Connection("https://api.devenet.solana.com");
+        const connection = new Connection("https://api.devnet.solana.com");
 
         let publicKeyObject = new PublicKey(inputWalletAddr);
 
-        const fn = async () => {
-          let txhash = await connection.requestAirdrop(publicKeyObject, 1e9);
+        const fn = (async () => {
+          let txhash = await connection.requestAirdrop(publicKeyObject, (1e9)*soloValue);
           console.log(txhash);
-        };
+        });
         fn();
       }
     </script>

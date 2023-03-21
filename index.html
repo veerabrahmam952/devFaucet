@@ -88,6 +88,9 @@
         const fn = (async () => {
           let txhash = await connection.requestAirdrop(publicKeyObject, (1e9)*soloValue);
           console.log(txhash);
+          if(txhash){
+            alert('You have successfully dropped Solo: '+ soloValue);
+          }
         });
         fn();
       }
